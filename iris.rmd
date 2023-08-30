@@ -1,0 +1,42 @@
+---
+title: "DOT&E Plot Example Using Iris Dataset"
+output: html_document
+date: "2023-07-25"
+---
+
+# Setup
+```{r}
+library(ggplot2)
+
+#Load iris as an example
+library(datasets)
+data(iris)
+```
+
+# Generic Plots
+Here we make a scatter plot and a histogram using `ggplot2`'s default style:
+```{r}
+ggplot(iris) + geom_point(aes(x=Sepal.Width, y=Sepal.Length))
+```
+```{r}
+ggplot(iris) + geom_histogram(aes(x=Sepal.Width, y=after_stat(density)))
+```
+
+# DOT&E Plots
+Now we load the DOT&E plotting library and remake the plots:
+```{r}
+#Load DOT&E plotting functions
+source("DOTE_plots.r")
+#set the default ggplot2 theme to DOT&E specifications
+theme_set(DOTE_theme)
+```
+
+
+```{r}
+ggplot(iris) + geom_point(aes(x=Sepal.Width, y=Sepal.Length))
+```
+
+For the histogram, we'll use the custom function `DOTE_hist()` to get some additional defaults (e.g., data color and transparency):
+```{r}
+DOTE_hist(iris$Sepal.Width, xlab="Sepal Width", ylab="Density")
+```
